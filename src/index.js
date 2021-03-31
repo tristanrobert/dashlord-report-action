@@ -32,7 +32,8 @@ const zapCleanup = (result) => ({
 });
 
 const cleanups = {
-  nuclei: (result) => result.map((r) => omit(r, ["request", "response"])),
+  nuclei: (result) =>
+    result && result.map((r) => omit(r, ["request", "response"])),
   zap: zapCleanup,
   lhr: (result) => {
     if (!result) {
