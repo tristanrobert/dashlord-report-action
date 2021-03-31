@@ -26,4 +26,4 @@ runs:
         yarn
         CI=false yarn build
         touch build/.nojekyll
-        echo "::set-output name=report-path::$(echo $DASHLORD_REPO_PATH)/www/build"
+        echo "::set-output name=report-path::${{ github.action_path }}/www/build"
