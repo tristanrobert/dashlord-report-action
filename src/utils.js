@@ -27,7 +27,7 @@ const toHostname = (url) =>
  */
 const getUrls = () =>
   fs
-    .readFileSync(path.join(__dirname, "..", "urls.txt"))
+    .readFileSync(path.join(process.env.DASHLORD_REPO_PATH, "urls.txt"))
     .toString()
     .split("\n")
     .filter((r) => !r.match(/^\s*#/))
