@@ -20,10 +20,14 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
-        REPOSITORY_NAME=/$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')
-        echo "REPOSITORY_NAME: $REPOSITORY_NAME"
+        export REPOSITORY_NAME=/$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')
         export DASHLORD_REPO_PATH=${{ github.workspace }};
-        export PUBLIC_URL=${{ inputs.public-url }}
+        export PUBLIC_URL=$([[ -n "${{ inputs.public-url }}" ]] && echo "${{ inputs.public-url }}" || echo $REPOSITORY_NAME)
+
+        echo "REPOSITORY_NAME: $REPOSITORY_NAME"
+        echo "DASHLORD_REPO_PATH: $DASHLORD_REPO_PATH"
+        echo "PUBLIC_URL: $PUBLIC_URL"
+        
         cd ${{ github.action_path }}
         yarn
         # this create a report.json to build the website
