@@ -5,10 +5,6 @@ inputs:
   public-url:
     description: "PUBLIC_URL for the build. see https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system"
     required: false
-outputs:
-  report-path:
-    description: "Path to built website"
-    value: ${{ steps.build.outputs.report-path }}
 
 runs:
   using: "composite"
@@ -37,4 +33,3 @@ runs:
         CI=false yarn build
         touch build/.nojekyll
         mv build ${{ github.workspace }}/build
-        echo "::set-output name=report-path::${{ github.action_path }}/www/build"
