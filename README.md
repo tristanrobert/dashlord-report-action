@@ -1,6 +1,8 @@
 # dashlord-report-action
 
-This action build a web report based on dashlord-scanners content
+This action build a web report based on dashlord-scanners content.
+
+The report website itself is in the `www` folder.
 
 ## Inputs
 
