@@ -36,4 +36,5 @@ runs:
         yarn
         CI=false yarn build
         touch build/.nojekyll
+        mv build ${{ github.workspace }}/build
         echo "::set-output name=report-path::${{ github.action_path }}/www/build"
