@@ -19,7 +19,7 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
-        export REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')
+        export REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')
         export DASHLORD_REPO_PATH=${{ github.workspace }};
         export PUBLIC_URL=$([[ -n "${{ inputs.public-url }}" ]] && echo "${{ inputs.public-url }}" || echo "/$REPOSITORY_NAME")
 
