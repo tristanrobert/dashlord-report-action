@@ -1,6 +1,6 @@
 # dashlord-report-action
 
-This action build a web report based on dashlord-scanners content.
+This GitHub action build a web report based on dashlord-scanners content.
 
 The report website itself is in the `www` folder.
 
