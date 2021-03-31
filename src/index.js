@@ -19,6 +19,7 @@ const requireJson = (resultsPath, filename) => {
 const zapCleanup = (result) => ({
   ...result,
   site:
+    result &&
     result.site &&
     result.site.map((site) => {
       return {
@@ -34,6 +35,9 @@ const cleanups = {
   nuclei: (result) => result.map((r) => omit(r, ["request", "response"])),
   zap: zapCleanup,
   lhr: (result) => {
+    if (!result) {
+      return null;
+    }
     const { requestedUrl, finalUrl, categories, audits } = result;
     // strip some data
     const newCategories = Object.keys(categories).reduce(
