@@ -9,6 +9,7 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
+        cd ${{ github.action_path }}
         yarn
         # this create a report.json to build the website
         # also copies html reports to www/public
