@@ -3,11 +3,11 @@ const path = require("path");
 const pick = require("lodash.pick");
 const omit = require("lodash.omit");
 
-const { getUrls, toHostname } = require("../utils");
+const { getUrls, toHostname } = require("./utils");
 
 const requireJson = (resultsPath, filename) => {
   try {
-    return require(path.join("..", "..", resultsPath, filename));
+    return require(path.join("..", resultsPath, filename));
   } catch (e) {
     console.error("e", e);
     return null;
