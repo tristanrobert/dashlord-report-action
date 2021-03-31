@@ -5,7 +5,7 @@ inputs:
   public-url:
     description: "PUBLIC_URL for the build. see https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system"
     required: true
-    default: /${{ github.repository }}
+    default: /
 outputs:
   report-path:
     description: "Path to built website"
