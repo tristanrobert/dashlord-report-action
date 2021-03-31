@@ -4,11 +4,13 @@ description: "Generate a dashlord report"
 outputs:
   report-path:
     description: "Path to built website"
+    value: ${{ steps.build.outputs.report-path }}
 
 runs:
   using: "composite"
   steps:
     - name: Build
+      id: build
       shell: bash
       env:
         SKIP_PREFLIGHT_CHECK: "true"
