@@ -4,8 +4,7 @@ description: "Generate a dashlord report"
 inputs:
   public-url:
     description: "PUBLIC_URL for the build. see https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system"
-    required: true
-    default: "/"
+    required: false
 outputs:
   report-path:
     description: "Path to built website"
@@ -20,14 +19,14 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
-        export REPOSITORY_NAME=/$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')
+        export REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')
         export DASHLORD_REPO_PATH=${{ github.workspace }};
-        export PUBLIC_URL=$([[ -n "${{ inputs.public-url }}" ]] && echo "${{ inputs.public-url }}" || echo $REPOSITORY_NAME)
+        export PUBLIC_URL=$([[ -n "${{ inputs.public-url }}" ]] && echo "${{ inputs.public-url }}" || echo "/$REPOSITORY_NAME")
 
         echo "REPOSITORY_NAME: $REPOSITORY_NAME"
         echo "DASHLORD_REPO_PATH: $DASHLORD_REPO_PATH"
         echo "PUBLIC_URL: $PUBLIC_URL"
-        
+
         cd ${{ github.action_path }}
         yarn
         # this create a report.json to build the website

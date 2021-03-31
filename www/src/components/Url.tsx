@@ -37,7 +37,9 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
         <React.Fragment>
           <LightHouse
             data={urlData.lhr}
-            url={`/dnum-dashboard/report/${window.btoa(url)}/lhr.html`}
+            url={`${process.env.PUBLIC_URL}/report/${window.btoa(
+              url
+            )}/lhr.html`}
           />
           <br />
         </React.Fragment>
@@ -75,7 +77,9 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
         <React.Fragment>
           <Owasp
             data={urlData.zap}
-            url={`/dnum-dashboard/report/${window.btoa(url)}/zap.html`}
+            url={`${process.env.PUBLIC_URL}/report/${window.btoa(
+              url
+            )}/zap.html`}
           />
           <br />
         </React.Fragment>
