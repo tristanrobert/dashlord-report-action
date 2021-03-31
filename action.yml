@@ -1,6 +1,10 @@
 name: "DashLord report Action"
 description: "Generate a dashlord report"
 
+outputs:
+  report-path:
+    description: "Path to built website"
+
 runs:
   using: "composite"
   steps:
@@ -20,3 +24,4 @@ runs:
         yarn
         CI=false yarn build
         touch build/.nojekyll
+        echo "::set-output name=report-path::$(echo $DASHLORD_REPO_PATH)"
