@@ -5,13 +5,11 @@ const omit = require("lodash.omit");
 
 const { getUrls, toHostname } = require("./utils");
 
+const DASHLORD_REPO_PATH = process.env.DASHLORD_REPO_PATH || ".";
+
 const requireJson = (resultsPath, filename) => {
   try {
-    return require(path.join(
-      process.env.DASHLORD_REPO_PATH,
-      resultsPath,
-      filename
-    ));
+    return require(path.join(resultsPath, filename));
   } catch (e) {
     console.error("e", e);
     return null;
@@ -58,7 +56,7 @@ const generateReport = () => {
   const urls = getUrls()
     .map((url) => {
       const urlb64 = Buffer.from(url).toString("base64");
-      const urlPath = path.join("results", urlb64);
+      const urlPath = path.join(DASHLORD_REPO_PATH, "results", urlb64);
       if (fs.existsSync(urlPath)) {
         const scans = fs.readdirSync(urlPath);
         scans.sort().reverse();
