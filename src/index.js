@@ -91,12 +91,16 @@ const generateReport = () => {
           urlb64
         );
         fs.mkdirSync(publicReportsUrlPath, { recursive: true });
-        fs.createReadStream(path.join(latestFilesPath, "lhr.html")).pipe(
-          fs.createWriteStream(path.join(publicReportsUrlPath, "lhr.html"))
-        );
-        fs.createReadStream(path.join(latestFilesPath, "zap.html")).pipe(
-          fs.createWriteStream(path.join(publicReportsUrlPath, "zap.html"))
-        );
+        if (fs.existsSync(path.join(latestFilesPath, "lhr.html"))) {
+          fs.createReadStream(path.join(latestFilesPath, "lhr.html")).pipe(
+            fs.createWriteStream(path.join(publicReportsUrlPath, "lhr.html"))
+          );
+        }
+        if (fs.existsSync(path.join(latestFilesPath, "zap.html"))) {
+          fs.createReadStream(path.join(latestFilesPath, "zap.html")).pipe(
+            fs.createWriteStream(path.join(publicReportsUrlPath, "zap.html"))
+          );
+        }
         return urlData;
       } else {
         console.error(`Cannot find folder for ${url}`);
