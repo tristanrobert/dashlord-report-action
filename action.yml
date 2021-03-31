@@ -9,7 +9,6 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
-        LATEST=$(find ./results/* -type d -prune | tail -n 1)
         yarn
         # this create a report.json to build the website
         # also copies html reports to www/public
