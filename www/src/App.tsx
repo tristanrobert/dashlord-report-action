@@ -11,11 +11,14 @@ import { Topbar } from "./components/Topbar";
 import { Dashboard } from "./components/Dashboard";
 import { Url } from "./components/Url";
 import { Intro } from "./components/Intro";
+import { ScrollToTop } from "./components/ScrollToTop";
+
 
 const App = () => {
   return (
     <Router>
       <div>
+        <ScrollToTop />
         <Topbar />
         <Container fluid>
           <Row>
