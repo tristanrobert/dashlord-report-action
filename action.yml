@@ -9,6 +9,8 @@ runs:
       env:
         SKIP_PREFLIGHT_CHECK: "true"
       run: |
+        export DASHLORD_REPO_PATH=${{ github.workspace }};
+        echo "DASHLORD_REPO_PATH: $DASHLORD_REPO_PATH"
         cd ${{ github.action_path }}
         yarn
         # this create a report.json to build the website
