@@ -36,12 +36,12 @@ const getGradeCookies = (count: number) => {
   return count > 10
     ? "F"
     : count > 5
-      ? "E"
-      : count > 2
-        ? "C"
-        : count > 0
-          ? "B"
-          : "A";
+    ? "E"
+    : count > 2
+    ? "C"
+    : count > 0
+    ? "B"
+    : "A";
 };
 
 const getNucleiGrade = (events: any) => {
@@ -50,8 +50,8 @@ const getNucleiGrade = (events: any) => {
   ).length
     ? "F"
     : events.length
-      ? "B"
-      : "A";
+    ? "B"
+    : "A";
 };
 
 const getOwaspGrade = (owaspAlerts: any) => {
@@ -62,12 +62,12 @@ const getOwaspGrade = (owaspAlerts: any) => {
   return maxSeverity > 3
     ? "F"
     : maxSeverity > 2
-      ? "D"
-      : maxSeverity > 1
-        ? "C"
-        : maxSeverity > 0
-          ? "B"
-          : "A";
+    ? "D"
+    : maxSeverity > 1
+    ? "C"
+    : maxSeverity > 0
+    ? "B"
+    : "A";
 };
 
 type ColumnHeaderProps = {
@@ -169,7 +169,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
             // OWASP
             const owaspAlerts =
               (urlReport.zap &&
-                urlReport.zap.site && urlReport.zap.site.flatMap((site: any) =>
+                urlReport.zap.site &&
+                urlReport.zap.site.flatMap((site: any) =>
                   site.alerts.filter((a: any) => a.riskcode !== "0")
                 )) ||
               [];
@@ -193,8 +194,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
             const cookiesGrade = getGradeCookies(cookiesCount);
 
             // NUCLEI
-            const nucleiCount = urlReport.nuclei.length;
-            const nucleiGrade = getNucleiGrade(urlReport.nuclei);
+            const nucleiCount = urlReport.nuclei && urlReport.nuclei.length;
+            const nucleiGrade =
+              urlReport.nuclei && getNucleiGrade(urlReport.nuclei);
 
             return (
               <tr key={urlReport.url}>
@@ -263,9 +265,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
                     <IconUnknown />
                   )}
                 </td>
-                <td className="text-center">
-                  <Grade small grade={nucleiGrade} label={nucleiCount} />
-                </td>
+                {urlReport.nuclei ? (
+                  <td className="text-center">
+                    <Grade small grade={nucleiGrade} label={nucleiCount} />
+                  </td>
+                ) : (
+                  <IconUnknown />
+                )}
               </tr>
             );
           })}
