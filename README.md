@@ -4,6 +4,23 @@ This GitHub action build a web report based on dashlord-scanners content.
 
 The report website itself is in the `www` folder.
 
+The dashboard can be configured with `dashlord.yaml` or a flat url list `urls.txt`
+
+```yaml
+title: Dashboard title
+urls:
+  - url: https://www.free.fr
+    name: Homepage free.fr
+    tags:
+      - telecom
+      - provider
+  - url: https://www.nextinpact.com/
+    name: NextInpact
+    tags:
+      - actu
+      - tech
+```
+
 ## Inputs
 
 ### `public-url`
@@ -38,5 +55,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: ${{ steps.dashlord-report.outputs.report-path }}
+          folder: build
 ```

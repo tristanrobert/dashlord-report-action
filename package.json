@@ -4,9 +4,11 @@
   "main": "index.js",
   "private": true,
   "license": "Apache-2.0",
+  "types": "index.d.ts",
   "dependencies": {
     "lodash.omit": "^4.5.0",
-    "lodash.pick": "^4.4.0"
+    "lodash.pick": "^4.4.0",
+    "yaml": "^1.10.2"
   },
   "scripts": {
     "test": "jest"
