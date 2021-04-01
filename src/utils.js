@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+const YAML = require("yaml");
 
+const DASHLORD_REPO_PATH = process.env.DASHLORD_REPO_PATH || ".";
 /**
  * Get hostname of a given URL
  *
@@ -20,17 +22,39 @@ const toHostname = (url) =>
   null;
 
 /**
+ * Read text file
+ *
+ * @param {string} filePath The full path to file
+ *
+ * @returns {string} file contents
+ */
+const readFile = (filePath) => fs.readFileSync(filePath).toString();
+
+/**
  * Get list of urls from a text file
  *
  *
- * @returns {string[]} a list of urls
+ * @returns {UrlConfig[]} a list of urls
  */
-const getUrls = () =>
-  fs
-    .readFileSync(path.join(process.env.DASHLORD_REPO_PATH, "urls.txt"))
-    .toString()
-    .split("\n")
-    .filter((r) => !r.match(/^\s*#/))
-    .filter(Boolean);
-
+const getUrls = () => {
+  if (fs.existsSync(path.join(DASHLORD_REPO_PATH, "dashlord.yaml"))) {
+    return YAML.parse(readFile(path.join(DASHLORD_REPO_PATH, "dashlord.yaml")))
+      .urls;
+  } else if (fs.existsSync(path.join(DASHLORD_REPO_PATH, "dashlord.yml"))) {
+    return YAML.parse(readFile(path.join(DASHLORD_REPO_PATH, "dashlord.yml")))
+      .urls;
+  } else if (fs.existsSync(path.join(DASHLORD_REPO_PATH, "urls.txt"))) {
+    return readFile(path.join(DASHLORD_REPO_PATH, "urls.txt"))
+      .split("\n")
+      .filter((r) => !r.match(/^\s*#/)) // remove comments
+      .filter(Boolean) // remove noise
+      .map((url) => url.toLowerCase())
+      .map((url) => ({
+        url,
+      }));
+  } else {
+    console.error("Cannot find dashlord.yaml or urls.txt");
+    return [];
+  }
+};
 module.exports = { toHostname, getUrls };
