@@ -11,7 +11,7 @@
     "@types/node": "^14.14.36",
     "@types/react": "^17.0.3",
     "@types/react-bootstrap": "^0.32.25",
-    "@types/react-dom": "^17.0.2",
+    "@types/react-dom": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",
     "bootstrap": "^4.6.0",
     "country-flag-icons": "^1.2.9",
