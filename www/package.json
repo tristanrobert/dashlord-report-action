@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
+    "@babel/core": "^7.13.14",
     "@babel/preset-env": "^7.13.12",
     "@socialgouv/eslint-config-strict": "^1.0.0-beta.5",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
