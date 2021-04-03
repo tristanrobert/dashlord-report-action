@@ -32,5 +32,5 @@ runs:
         yarn
         CI=false yarn build
         touch build/.nojekyll
-        cp www/src/report.json ${{ github.workspace }}/report.json
+        cp src/report.json ${{ github.workspace }}/report.json
         mv build ${{ github.workspace }}/build
