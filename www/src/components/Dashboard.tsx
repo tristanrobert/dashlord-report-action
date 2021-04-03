@@ -262,13 +262,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
                     <IconUnknown />
                   )}
                 </td>
-                {urlReport.nuclei ? (
-                  <td className="text-center">
-                    <Grade small grade={nucleiGrade} label={nucleiCount} />
-                  </td>
-                ) : (
-                  <IconUnknown />
-                )}
+                <td className="text-center">
+                  {urlReport.nuclei ? (<Grade small grade={nucleiGrade} label={nucleiCount} />) : (
+                    <IconUnknown />
+                  )}
+                </td>
               </tr>
             );
           })}
