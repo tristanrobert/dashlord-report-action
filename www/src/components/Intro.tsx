@@ -193,6 +193,20 @@ export const Intro: React.FC = () => {
           Site officiel
         </Button>
       </Panel>
+      <br />
+
+      <Panel title="Wappalyser">
+        Wappalyzer reconnait +1500 technologies web, Javascript, CMS, outillage...
+        <br />
+        <br />
+        <li>Stack technique</li>
+        <li>Obsolescence</li>
+        <li>Parc</li>
+        <br />
+        <Button variant="dark" href="https://www.wappalyzer.com/">
+          Site officiel
+        </Button>
+      </Panel>
     </div>
   );
 };

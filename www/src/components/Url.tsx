@@ -10,6 +10,7 @@ import { Nuclei } from "./Nuclei";
 import { Owasp } from "./Owasp";
 import { TestSSL } from "./TestSSL";
 import { Trackers } from "./Trackers";
+import { Wappalyser } from "./Wappalyser";
 
 type UrlDetailProps = { report: any };
 
@@ -82,6 +83,15 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
             url={`${process.env.PUBLIC_URL}/report/${window.btoa(
               url
             )}/zap.html`}
+          />
+          <br />
+        </React.Fragment>
+      )) ||
+        null}
+      {(urlData.wappalyser && (
+        <React.Fragment>
+          <Wappalyser
+            data={urlData.wappalyser}
           />
           <br />
         </React.Fragment>

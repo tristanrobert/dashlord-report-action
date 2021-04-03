@@ -123,6 +123,9 @@ const generateReport = () => {
           thirdparties: requireJson(
             path.join(latestFilesPath, "thirdparties.json")
           ),
+          wappalyser: requireJson(
+            path.join(latestFilesPath, "wappalyser.json")
+          ),
           zap: cleanups.zap(
             requireJson(path.join(latestFilesPath, "zap.json"))
           ),
@@ -130,7 +133,6 @@ const generateReport = () => {
             requireJson(path.join(latestFilesPath, "nuclei.json")),
             url.url
           ),
-
           lhr: cleanups.lhr(
             requireJson(path.join(latestFilesPath, "lhr.json"))
           ),

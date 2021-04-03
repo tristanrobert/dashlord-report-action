@@ -1,11 +1,10 @@
 import * as React from "react";
 
-import { Row, Col, Alert, Table, Badge } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap";
 import { Info } from "react-feather";
 
 import { Panel } from "./Panel";
 import { Grade } from "./Grade";
-import { cpuUsage } from "node:process";
 
 
 const sortByKey = (key: string) => (a: any, b: any) => {
@@ -22,24 +21,6 @@ const sortByKey = (key: string) => (a: any, b: any) => {
 const severities = ["INFO", "OK", "LOW", "MEDIUM", "HIGH", "CRITICAL"];
 const getSeverityValue = (severity: string) => severities.indexOf(severity);
 
-type SSLBadgeProps = { row: any; };
-
-const SSLBadge: React.FC<SSLBadgeProps> = ({ row }) => {
-  const severity = row.severity;
-  console.log(row)
-  const variant =
-    (severity === "INFO" || severity === "OK" || severity === "LOW")
-      ? "info"
-      : severity === "MEDIUM"
-        ? "warning"
-        : "danger"
-  return (
-    <Badge className="w-100" variant={variant}>
-      {row.severity}
-    </Badge>
-  );
-};
-
 type SSLProps = { data: any; url: string };
 
 export const TestSSL: React.FC<SSLProps> = ({ data, url }) => {
@@ -54,7 +35,7 @@ export const TestSSL: React.FC<SSLProps> = ({ data, url }) => {
   return (
     data &&
     data.length && (
-      <Panel title="SSL" info="Informations collectées via SSLlabs" url={url}>
+      <Panel title="SSL" info="Informations collectées via testssl.sh" url={url}>
         <Row>
           <Col>
             <h3>
