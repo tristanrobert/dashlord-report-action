@@ -12,7 +12,7 @@ export const Intro: React.FC = () => {
     <div>
       <br />
       <Jumbotron style={{ padding: "2em" }}>
-        <h1>MétéoMapps</h1>
+        <h1>DashLord</h1>
         <br />
         Le tableau de bord présente les données aggrégées issues de plusieurs
         outils qui évaluent chaque URL automatiquement et indépendamment.
@@ -100,7 +100,7 @@ export const Intro: React.FC = () => {
       </Panel>
       <br />
 
-      <Panel title="SSLLabs">
+      <Panel title="testssl.sh">
         Évalue le niveau de confiance d'un certificat SSL
         <br />
         <br />
@@ -109,11 +109,18 @@ export const Intro: React.FC = () => {
         <li>Compatibilité navigateurs</li>
         <li>Solidité des clés de chiffrement</li>
         <br />
-        <Button
-          variant="dark"
-          href="https://www.ssllabs.com/ssltest/analyze.html"
-        >
+        <Alert variant="info">
+          <Info size={16} style={{ marginRight: 5 }} />
+          L'audit complet avec les recommandations de correction est disponible
+          pour chaque URL
+        </Alert>
+        <br />
+        <Button variant="dark" href="https://testssl.sh/">
           Site officiel
+        </Button>
+        &nbsp;
+        <Button variant="dark" href="https://github.com/drwetter/testssl.sh">
+          Code source
         </Button>
       </Panel>
       <br />

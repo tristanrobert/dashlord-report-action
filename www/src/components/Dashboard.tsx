@@ -36,12 +36,12 @@ const getGradeCookies = (count: number) => {
   return count > 10
     ? "F"
     : count > 5
-    ? "E"
-    : count > 2
-    ? "C"
-    : count > 0
-    ? "B"
-    : "A";
+      ? "E"
+      : count > 2
+        ? "C"
+        : count > 0
+          ? "B"
+          : "A";
 };
 
 const getNucleiGrade = (events: any) => {
@@ -50,8 +50,8 @@ const getNucleiGrade = (events: any) => {
   ).length
     ? "F"
     : events.length
-    ? "B"
-    : "A";
+      ? "B"
+      : "A";
 };
 
 const getOwaspGrade = (owaspAlerts: any) => {
@@ -62,12 +62,12 @@ const getOwaspGrade = (owaspAlerts: any) => {
   return maxSeverity > 3
     ? "F"
     : maxSeverity > 2
-    ? "D"
-    : maxSeverity > 1
-    ? "C"
-    : maxSeverity > 0
-    ? "B"
-    : "A";
+      ? "D"
+      : maxSeverity > 1
+        ? "C"
+        : maxSeverity > 0
+          ? "B"
+          : "A";
 };
 
 type ColumnHeaderProps = {
@@ -158,10 +158,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
 
             // SSL
             const ssl =
-              urlReport.ssl &&
-              urlReport.ssl.endpoints &&
-              urlReport.ssl.endpoints.length &&
-              urlReport.ssl.endpoints[0].grade;
+              urlReport.testssl && urlReport.testssl.find((entry: any) => entry.id === "overall_grade").finding;
 
             // HTTP
             const http = urlReport.http && urlReport.http.grade;

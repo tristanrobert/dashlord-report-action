@@ -8,7 +8,7 @@ import { HTTP } from "./HTTP";
 import { LightHouse } from "./LightHouse";
 import { Nuclei } from "./Nuclei";
 import { Owasp } from "./Owasp";
-import { SSL } from "./SSL";
+import { TestSSL } from "./TestSSL";
 import { Trackers } from "./Trackers";
 
 type UrlDetailProps = { report: any };
@@ -45,9 +45,11 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
         </React.Fragment>
       )) ||
         null}
-      {(urlData.ssl && (
+      {(urlData.testssl && (
         <React.Fragment>
-          <SSL data={urlData.ssl} />
+          <TestSSL data={urlData.testssl} url={`${process.env.PUBLIC_URL}/report/${window.btoa(
+            url
+          )}/testssl.html`} />
           <br />
         </React.Fragment>
       )) ||
