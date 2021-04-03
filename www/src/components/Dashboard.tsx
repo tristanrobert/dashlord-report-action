@@ -158,7 +158,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
 
             // SSL
             const ssl =
-              urlReport.testssl && urlReport.testssl.find((entry: any) => entry.id === "overall_grade").finding;
+              urlReport.testssl && urlReport.testssl.find((entry: any) => entry.id === "overall_grade") && urlReport.testssl.find((entry: any) => entry.id === "overall_grade").finding;
 
             // HTTP
             const http = urlReport.http && urlReport.http.grade;
