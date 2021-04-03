@@ -119,7 +119,7 @@ const generateReport = () => {
         const urlData = {
           ...url,
           http: requireJson(path.join(latestFilesPath, "http.json")),
-          ssl: requireJson(path.join(latestFilesPath, "ssl.json")),
+          testssl: requireJson(path.join(latestFilesPath, "testssl.json")),
           thirdparties: requireJson(
             path.join(latestFilesPath, "thirdparties.json")
           ),
@@ -136,7 +136,7 @@ const generateReport = () => {
           ),
         };
 
-        // copy lhr and zap html reports
+        // copy lhr, zap and testssl.sh static reports
         const publicReportsUrlPath = path.join(
           "www",
           "public",
@@ -145,17 +145,25 @@ const generateReport = () => {
         );
 
         fs.mkdirSync(publicReportsUrlPath, { recursive: true });
-        if (fs.existsSync(path.join(latestFilesPath, "lhr.html"))) {
-          fs.createReadStream(path.join(latestFilesPath, "lhr.html")).pipe(
-            fs.createWriteStream(path.join(publicReportsUrlPath, "lhr.html"))
-          );
-        }
 
-        if (fs.existsSync(path.join(latestFilesPath, "zap.html"))) {
-          fs.createReadStream(path.join(latestFilesPath, "zap.html")).pipe(
-            fs.createWriteStream(path.join(publicReportsUrlPath, "zap.html"))
-          );
-        }
+        /**
+         *
+         * @param {string} name file name to export to public website
+         *
+         * @returns {void}
+         */
+        const copyForWebsite = (name) => {
+          if (fs.existsSync(path.join(latestFilesPath, name))) {
+            fs.createReadStream(path.join(latestFilesPath, name)).pipe(
+              fs.createWriteStream(path.join(publicReportsUrlPath, name))
+            );
+          }
+        };
+
+        copyForWebsite("lhr.html");
+        copyForWebsite("testssl.html");
+        copyForWebsite("zap.html");
+
         return urlData;
       } else {
         console.error(`Cannot find folder for ${url.url}`);
