@@ -34,9 +34,10 @@ export const Url: React.FC<UrlDetailProps> = ({ url, report, ...props }) => {
             </Badge>
           </Link>
           {report.tags.map((tag: string) => (
-            <Badge key={tag} style={{ marginRight: 5 }} variant="info">
+            <Link to={`/tag/${tag}`}><Badge key={tag} style={{ marginRight: 5 }} variant="info">
               {tag}
             </Badge>
+            </Link>
           ))}
           {updateDate && (
             <span title={updateDate}>

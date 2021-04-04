@@ -25,29 +25,26 @@ type SSLProps = { data: any; url: string };
 
 export const TestSSL: React.FC<SSLProps> = ({ data, url }) => {
   const grade =
-    data && data.find((entry: any) => entry.id === "overall_grade").finding;
+    data && data.find((entry: any) => entry.id === "overall_grade") && data.find((entry: any) => entry.id === "overall_grade").finding;
   const results = data.map((row: any) => ({
     ...row,
     severity_value: getSeverityValue(row.severity),
   }));
   results.sort(sortByKey("severity_value")).reverse();
   const capReasons = data.filter((entry: any) => entry.id.indexOf('grade_cap_reason_') === 0).reverse();
-  return (
-    data &&
-    data.length && (
-      <Panel title="SSL" info="Informations collectées via testssl.sh" url={url}>
-        <Row>
-          <Col>
-            <h3>
-              Scan Summary : <Grade small grade={grade} />
-            </h3>
-            <br />
-            {capReasons.map((reason: any) => {
-              return <Alert key={reason.id} variant="info"><Info style={{ marginRight: 5 }} />{reason.finding}</Alert>
-            })}
-          </Col>
-        </Row>
-      </Panel>
-    )
-  );
+  return grade && (
+    <Panel title="SSL" info="Informations collectées via testssl.sh" url={url}>
+      <Row>
+        <Col>
+          <h3>
+            Scan Summary : <Grade small grade={grade} />
+          </h3>
+          <br />
+          {capReasons.map((reason: any) => {
+            return <Alert key={reason.id} variant="info"><Info style={{ marginRight: 5 }} />{reason.finding}</Alert>
+          })}
+        </Col>
+      </Row>
+    </Panel>
+  ) || null
 };

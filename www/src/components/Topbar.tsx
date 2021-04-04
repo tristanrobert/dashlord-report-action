@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Cloud } from "react-feather";
+import { Cloud, Info } from "react-feather";
 import { Navbar } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
@@ -11,6 +11,7 @@ export const Topbar = () => (
     sticky="top"
     expand="lg"
     className="p-0 flex-md-nowrap shadow"
+    style={{ justifyContent: 'space-between' }}
   >
     <Link to="/">
       <div
@@ -21,10 +22,6 @@ export const Topbar = () => (
         DashLord
       </div>
     </Link>
-    {/*<FormControl
-      type="text"
-      placeholder="Search url"
-      className=" form-control-dark w-100"
-    />*/}
+    <Link title="À propos" to="/about" style={{ color: "white", marginRight: 5 }}><Info /></Link>
   </Navbar>
 );

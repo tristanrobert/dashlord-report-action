@@ -25,14 +25,14 @@ export const Intro: React.FC = () => {
         Vous pouvez soumettre de nouvelles URLs, proposer des corrections ou
         consulter la roadmap en{" "}
         <a
-          href="https://github.com/SocialGouv/dnum-dashboard/issues/new"
+          href="https://github.com/SocialGouv/dashlord/issues/new"
           target="_blank"
           rel="noopener noreferrer"
         >
           cliquant ici
         </a>
         .
-        <br />
+        <br /><br />
         <br />
         <Link to="/dashboard">
           <Button variant="dark">Accéder au tableau de bord</Button>

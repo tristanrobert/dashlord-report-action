@@ -17,17 +17,18 @@ import { Dashboard } from "./components/Dashboard";
 import { Url } from "./components/Url";
 import { Intro } from "./components/Intro";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { About } from "./components/About";
 
 type CategoryRouteProps = { report: any };
 
 // for some reason react-router `:url*` didnt work, use `*` only
-interface ParamTypes {
-  "0": string;
+interface CategoryParamTypes {
+  category: string;
 }
 
 const CategoryRoute: React.FC<CategoryRouteProps> = (props) => {
-  const params = useParams<ParamTypes>();
-  const category = window.decodeURIComponent(params["0"]);
+  const params = useParams<CategoryParamTypes>();
+  const category = window.decodeURIComponent(params.category);
   const urls = props.report.filter((u: any) => u.category === category)
   return (
     <React.Fragment>
@@ -38,13 +39,34 @@ const CategoryRoute: React.FC<CategoryRouteProps> = (props) => {
   );
 };
 
+interface TagParamTypes {
+  tag: string;
+}
+type TagRouteProps = { report: any };
+
+const TagRoute: React.FC<TagRouteProps> = (props) => {
+  const params = useParams<TagParamTypes>();
+  const tag = window.decodeURIComponent(params.tag);
+  const urls = props.report.filter((u: any) => u.tags && u.tags.includes(tag))
+  return (
+    <React.Fragment>
+      <br />
+      <h3>{tag} : {urls.length} urls</h3>
+      <Dashboard report={urls} />
+    </React.Fragment>
+  );
+};
+
+interface UrlParamTypes {
+  "0": string;
+}
+
 type UrlRouteProps = { report: any };
 
 const UrlRoute: React.FC<UrlRouteProps> = (props) => {
-  const params = useParams<ParamTypes>();
+  const params = useParams<UrlParamTypes>();
   const url = window.decodeURIComponent(params["0"]);
   const urlData = props.report.find((r: any) => r.url === url) as any;
-  console.log('urlData', urlData)
   return <Url url={url} report={urlData} />
 }
 
@@ -65,8 +87,14 @@ const App = () => {
                 <Route path="/dashboard">
                   <Dashboard report={report} />
                 </Route>
-                <Route path="/category/*">
+                <Route path="/category/:category">
                   <CategoryRoute report={report} />
+                </Route>
+                <Route path="/tag/:tag">
+                  <TagRoute report={report} />
+                </Route>
+                <Route path="/about">
+                  <About />
                 </Route>
                 <Route path="/">
                   <Intro />
