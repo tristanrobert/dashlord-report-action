@@ -147,7 +147,7 @@ export const Intro: React.FC = () => {
       <br />
 
       <Panel title="Nucléi">
-        Détecte plus de 700 erreurs de configuration courante sur les
+        Détecte plus de 700 erreurs de configuration courantes sur les
         applications webs.
         <br />
         <br />

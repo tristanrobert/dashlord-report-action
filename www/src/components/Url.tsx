@@ -1,8 +1,9 @@
 import * as React from "react";
-
-import { useParams } from "react-router-dom";
-
-import { Jumbotron } from "react-bootstrap";
+import { formatDistanceToNow } from 'date-fns'
+import frLocale from "date-fns/locale/fr";
+import { Link } from "react-router-dom";
+import { Clock } from "react-feather";
+import { Jumbotron, Badge } from "react-bootstrap";
 
 import { HTTP } from "./HTTP";
 import { LightHouse } from "./LightHouse";
@@ -12,32 +13,44 @@ import { TestSSL } from "./TestSSL";
 import { Trackers } from "./Trackers";
 import { Wappalyser } from "./Wappalyser";
 
-type UrlDetailProps = { report: any };
+type UrlDetailProps = { url: string; report: any };
 
-// for some reason react-router `:url*` didnt work, use `*` only
-interface ParamTypes {
-  "0": string;
-}
-
-export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
-  const params = useParams<ParamTypes>();
-  const url = window.decodeURIComponent(params["0"]);
-  const urlData = report.find((r: any) => r.url === url) as any;
+export const Url: React.FC<UrlDetailProps> = ({ url, report, ...props }) => {
+  const updateDate = report.lhr && report.lhr.fetchTime;
   return (
     <div>
       <Jumbotron
-        style={{ height: 50, marginTop: 10, paddingTop: 20, marginBottom: 10 }}
+        style={{ height: 100, marginTop: 10, paddingTop: 20, marginBottom: 10 }}
       >
-        <h3 className="text-center">
+        <h4>
           <a href={url} rel="noreferrer noopener" target="_blank">
             {url}
           </a>
-        </h3>
+        </h4>
+        <p>
+          <Link to={`/category/${report.category}`}>
+            <Badge style={{ marginRight: 5 }} variant="success">
+              {report.category}
+            </Badge>
+          </Link>
+          {report.tags.map((tag: string) => (
+            <Badge key={tag} style={{ marginRight: 5 }} variant="info">
+              {tag}
+            </Badge>
+          ))}
+          {updateDate && (
+            <span title={updateDate}>
+              <Clock size={12} style={{ marginRight: 5 }} />
+              Mise à jour il y a :{" "}
+              {formatDistanceToNow(new Date(updateDate), { locale: frLocale })}
+            </span>
+          )}
+        </p>
       </Jumbotron>
-      {(urlData.lhr && (
+      {(report.lhr && (
         <React.Fragment>
           <LightHouse
-            data={urlData.lhr}
+            data={report.lhr}
             url={`${process.env.PUBLIC_URL}/report/${window.btoa(
               url
             )}/lhr.html`}
@@ -46,40 +59,43 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
         </React.Fragment>
       )) ||
         null}
-      {(urlData.testssl && (
+      {(report.testssl && (
         <React.Fragment>
-          <TestSSL data={urlData.testssl} url={`${process.env.PUBLIC_URL}/report/${window.btoa(
-            url
-          )}/testssl.html`} />
+          <TestSSL
+            data={report.testssl}
+            url={`${process.env.PUBLIC_URL}/report/${window.btoa(
+              url
+            )}/testssl.html`}
+          />
           <br />
         </React.Fragment>
       )) ||
         null}
-      {(urlData.http && (
+      {(report.http && (
         <React.Fragment>
-          <HTTP data={urlData.http} />
+          <HTTP data={report.http} />
           <br />
         </React.Fragment>
       )) ||
         null}
-      {(urlData.nuclei && (
+      {(report.nuclei && (
         <React.Fragment>
-          <Nuclei data={urlData.nuclei} />
+          <Nuclei data={report.nuclei} />
           <br />
         </React.Fragment>
       )) ||
         null}
-      {(urlData.thirdparties && (
+      {(report.thirdparties && (
         <React.Fragment>
-          <Trackers data={urlData.thirdparties} />
+          <Trackers data={report.thirdparties} />
           <br />
         </React.Fragment>
       )) ||
         null}
-      {(urlData.zap && (
+      {(report.zap && (
         <React.Fragment>
           <Owasp
-            data={urlData.zap}
+            data={report.zap}
             url={`${process.env.PUBLIC_URL}/report/${window.btoa(
               url
             )}/zap.html`}
@@ -88,11 +104,9 @@ export const Url: React.FC<UrlDetailProps> = ({ report, ...props }) => {
         </React.Fragment>
       )) ||
         null}
-      {(urlData.wappalyser && (
+      {(report.wappalyser && (
         <React.Fragment>
-          <Wappalyser
-            data={urlData.wappalyser}
-          />
+          <Wappalyser data={report.wappalyser} />
           <br />
         </React.Fragment>
       )) ||

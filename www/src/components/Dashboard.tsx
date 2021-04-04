@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Alert, Table } from "react-bootstrap";
-import { ExternalLink, Slash, Info, Search } from "react-feather";
+import { Slash, Info, Search } from "react-feather";
 import { Link } from "react-router-dom";
 import Tooltip from "rc-tooltip";
 
@@ -95,8 +95,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
     <div>
       <br />
       <Alert variant="info">
-        Cliquez sur une des URLs pour obtenir le détail puis sur{" "}
-        <ExternalLink size={16} /> pour accéder au rapport par produit. Si votre
+        Cliquez sur une des URLs pour obtenir le détail. Si votre
         URL est manquante,{" "}
         <a
           href="https://github.com/SocialGouv/dnum-dashboard/issues/new"

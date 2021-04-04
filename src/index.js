@@ -71,7 +71,14 @@ const lhrCleanup = (result) => {
   if (!result) {
     return null;
   }
-  const { requestedUrl, finalUrl, categories, audits } = result;
+  const {
+    requestedUrl,
+    finalUrl,
+    fetchTime,
+    runWarnings,
+    categories,
+    audits,
+  } = result;
 
   /** @type {LighthouseResultCategories} */
   // @ts-ignore
@@ -90,6 +97,8 @@ const lhrCleanup = (result) => {
   return {
     requestedUrl,
     finalUrl,
+    fetchTime,
+    runWarnings,
     categories: newCategories,
     audits: pick(audits, ["metrics", "diagnostics"]),
   };

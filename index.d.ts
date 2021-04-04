@@ -68,6 +68,8 @@ type LighthouseResultCategories = Record<
 type LighthouseResult = {
   requestedUrl: string;
   finalUrl: string;
+  runWarnings: string[];
+  fetchTime: string;
   categories: LighthouseResultCategories;
   audits: LighthouseResultAudits;
 };
