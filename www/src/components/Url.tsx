@@ -28,13 +28,13 @@ export const Url: React.FC<UrlDetailProps> = ({ url, report, ...props }) => {
           </a>
         </h4>
         <p>
-          <Link to={`/category/${report.category}`}>
+          {report.category && <Link to={`/category/${report.category}`}>
             <Badge style={{ marginRight: 5 }} variant="success">
               {report.category}
             </Badge>
-          </Link>
-          {report.tags.map((tag: string) => (
-            <Link to={`/tag/${tag}`}><Badge key={tag} style={{ marginRight: 5 }} variant="info">
+          </Link>}
+          {report.tags && report.tags.map((tag: string) => (
+            <Link key={tag} to={`/tag/${tag}`}><Badge style={{ marginRight: 5 }} variant="info">
               {tag}
             </Badge>
             </Link>

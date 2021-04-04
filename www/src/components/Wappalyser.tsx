@@ -8,7 +8,6 @@ import { Panel } from "./Panel";
 type WappalyserProps = { data: any };
 
 export const Wappalyser: React.FC<WappalyserProps> = ({ data }) => {
-    console.log('Wapp', data);
     return (
         (data && (
             <Panel

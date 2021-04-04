@@ -40,8 +40,8 @@ export const TestSSL: React.FC<SSLProps> = ({ data, url }) => {
             Scan Summary : <Grade small grade={grade} />
           </h3>
           <br />
-          {capReasons.map((reason: any) => {
-            return <Alert key={reason.id} variant="info"><Info style={{ marginRight: 5 }} />{reason.finding}</Alert>
+          {capReasons.map((reason: any, i: number) => {
+            return <Alert key={reason.id + i} variant="info"><Info style={{ marginRight: 5 }} />{reason.finding}</Alert>
           })}
         </Col>
       </Row>
