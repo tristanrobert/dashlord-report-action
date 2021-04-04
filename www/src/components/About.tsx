@@ -22,7 +22,7 @@ export const About: React.FC = () => {
 
                  DashLord est né à la <a href="https://fabrique.social.gouv.fr" target="_blank" rel="noopener noreferrer" > Fabrique des ministères sociaux</a > pour répondre aux besoins d'évaluation et de mise en oeuvre des bonnes pratiques de développement web.
                   < br /> <br />
-                Vous pouvez facilement créer votre propre DashLord pour vos URLs en suivant <a href="https://github.com/SocialGouv/dnum-dashboard/blob/main/README.md" target="_blank" rel="noopener noreferrer">les instructions sur le GitHub</a>.
+                Vous pouvez facilement créer votre propre DashLord pour vos URLs en suivant <a href="https://github.com/SocialGouv/dashlord/blob/main/README.md" target="_blank" rel="noopener noreferrer">les instructions sur le GitHub</a>.
             </div>
         </div >
     );

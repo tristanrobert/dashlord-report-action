@@ -34,3 +34,5 @@ jobs:
           branch: gh-pages
           folder: build
 ```
+
+To work with fresh data, get the `report` artifact from some of your `Build website` dashlord job.
