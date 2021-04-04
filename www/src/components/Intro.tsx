@@ -14,8 +14,8 @@ export const Intro: React.FC = () => {
       <Jumbotron style={{ padding: "2em" }}>
         <h1>DashLord</h1>
         <br />
-        Le tableau de bord présente les données aggrégées issues de plusieurs
-        outils qui évaluent chaque URL automatiquement et indépendamment.
+        Le tableau de bord aggrège les données issues de plusieurs
+        outils qui évaluent chaque URL indépendamment.
         <br />
         <br />
         L'évaluation des outils ne remplace en aucun cas une expertise manuelle,
