@@ -1904,7 +1904,7 @@
         }
       ]
     },
-    "wappalyser": {
+    "wappalyzer": {
       "urls": {
         "https://www.lemonde.fr/": {
           "status": 0,
@@ -6004,7 +6004,7 @@
         }
       ]
     },
-    "wappalyser": {
+    "wappalyzer": {
       "urls": {
         "https://www.liberation.fr/": {
           "status": 200
@@ -13977,7 +13977,7 @@
         }
       ]
     },
-    "wappalyser": {
+    "wappalyzer": {
       "urls": {
         "https://www.nytimes.com/": {
           "status": 0,
@@ -17960,7 +17960,7 @@
         }
       ]
     },
-    "wappalyser": {
+    "wappalyzer": {
       "urls": {
         "https://www.amazon.fr/": {
           "status": 200

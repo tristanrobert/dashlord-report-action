@@ -132,8 +132,8 @@ const generateReport = () => {
           thirdparties: requireJson(
             path.join(latestFilesPath, "thirdparties.json")
           ),
-          wappalyser: requireJson(
-            path.join(latestFilesPath, "wappalyser.json")
+          wappalyzer: requireJson(
+            path.join(latestFilesPath, "wappalyzer.json")
           ),
           zap: cleanups.zap(
             requireJson(path.join(latestFilesPath, "zap.json"))

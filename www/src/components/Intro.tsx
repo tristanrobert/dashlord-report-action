@@ -195,7 +195,7 @@ export const Intro: React.FC = () => {
       </Panel>
       <br />
 
-      <Panel title="Wappalyser">
+      <Panel title="Wappalyzer">
         Wappalyzer reconnait +1500 technologies web, Javascript, CMS, outillage...
         <br />
         <br />

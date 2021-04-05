@@ -11,7 +11,7 @@ import { Nuclei } from "./Nuclei";
 import { Owasp } from "./Owasp";
 import { TestSSL } from "./TestSSL";
 import { Trackers } from "./Trackers";
-import { Wappalyser } from "./Wappalyser";
+import { Wappalyzer } from "./Wappalyzer";
 
 type UrlDetailProps = { url: string; report: any };
 
@@ -105,9 +105,9 @@ export const Url: React.FC<UrlDetailProps> = ({ url, report, ...props }) => {
         </React.Fragment>
       )) ||
         null}
-      {(report.wappalyser && (
+      {(report.wappalyzer && (
         <React.Fragment>
-          <Wappalyser data={report.wappalyser} />
+          <Wappalyzer data={report.wappalyzer} />
           <br />
         </React.Fragment>
       )) ||

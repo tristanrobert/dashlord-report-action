@@ -5,13 +5,13 @@ import { Table } from "react-bootstrap";
 import { Panel } from "./Panel";
 
 
-type WappalyserProps = { data: any };
+type WappalyzerProps = { data: any };
 
-export const Wappalyser: React.FC<WappalyserProps> = ({ data }) => {
+export const Wappalyzer: React.FC<WappalyzerProps> = ({ data }) => {
     return (
         (data && (
             <Panel
-                title="Wappalyser"
+                title="Wappalyzer"
                 info="Détection des technologies"
             >
                 <Table striped bordered hover>
