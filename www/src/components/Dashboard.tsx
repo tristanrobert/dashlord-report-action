@@ -76,14 +76,15 @@ type ColumnHeaderProps = {
 };
 
 const ColumnHeader: React.FC<ColumnHeaderProps> = ({ title, info }) => (
-  <th className="text-center">
+  <th className="text-center sticky-top" style={{ background: "var(--white)", top: 30 }}>
     <Tooltip
       placement="bottom"
       trigger={["hover"]}
       overlay={<span>{info}</span>}
     >
-      <span>
-        {title} <Info size={16} style={{ marginLeft: 5 }} />
+      <span style={{ fontSize: '0.9em' }}>
+        {title}<br />
+        <Info size={16} style={{ cursor: 'pointer' }} />
       </span>
     </Tooltip>
   </th>
@@ -92,185 +93,169 @@ const ColumnHeader: React.FC<ColumnHeaderProps> = ({ title, info }) => (
 export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
   const sortedReport = report.sort(sortByKey("url"));
   return (
-    <div>
-      <br />
-      <Alert variant="info">
-        Cliquez sur une des URLs pour obtenir le détail. Si votre
-        URL est manquante,{" "}
-        <a
-          href="https://github.com/SocialGouv/dnum-dashboard/issues/new"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          ajoutez-là ici
-        </a>
-        .
-      </Alert>
-      <br />
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>url</th>
-            <ColumnHeader
-              title="Accessibilité"
-              info="Bonnes pratiques en matière d'accessibilité web"
-            />
-            <ColumnHeader
-              title="Performance"
-              info="Performances de chargement des pages web"
-            />
-            <ColumnHeader
-              title="SEO"
-              info="Bonnes pratiques en matière de référencement naturel"
-            />
-            <ColumnHeader
-              title="SSL"
-              info="Niveau de sécurité du certificat SSL"
-            />
-            <ColumnHeader
-              title="HTTP"
-              info="Bonnes pratiques de configuration HTTP"
-            />
-            <ColumnHeader
-              title="OWASP"
-              info="Bonnes pratiques de sécurité OWASP"
-            />
-            <ColumnHeader
-              title="Trackers"
-              info="Nombre de scripts externes présents"
-            />
-            <ColumnHeader title="Cookies" info="Nombre de cookies présents" />
-            <ColumnHeader title="Nuclei" info="Erreurs de configuration" />
-          </tr>
-        </thead>
-        <tbody>
-          {sortedReport.map((urlReport: any) => {
-            // compute values
+    <Table striped bordered hover>
+      <thead >
+        <tr >
+          <th className="sticky-top" style={{ background: "var(--white)", top: 30 }}>url</th>
+          <ColumnHeader
+            title="Accessibilité"
+            info="Bonnes pratiques en matière d'accessibilité web"
+          />
+          <ColumnHeader
+            title="Performance"
+            info="Performances de chargement des pages web"
+          />
+          <ColumnHeader
+            title="SEO"
+            info="Bonnes pratiques en matière de référencement naturel"
+          />
+          <ColumnHeader
+            title="SSL"
+            info="Niveau de sécurité du certificat SSL"
+          />
+          <ColumnHeader
+            title="HTTP"
+            info="Bonnes pratiques de configuration HTTP"
+          />
+          <ColumnHeader
+            title="OWASP"
+            info="Bonnes pratiques de sécurité OWASP"
+          />
+          <ColumnHeader
+            title="Trackers"
+            info="Nombre de scripts externes présents"
+          />
+          <ColumnHeader title="Cookies" info="Nombre de cookies présents" />
+          <ColumnHeader title="Nuclei" info="Erreurs de configuration" />
+        </tr>
+      </thead>
+      <tbody>
+        {sortedReport.map((urlReport: any) => {
+          // compute values
 
-            // LightHouse
-            const lhrCategories = urlReport.lhr && urlReport.lhr.categories;
-            const a11y =
-              lhrCategories && (lhrCategories.accessibility.score as number);
-            const webPerf =
-              lhrCategories && (lhrCategories.performance.score as number);
-            const seo = lhrCategories && (lhrCategories.seo.score as number);
+          // LightHouse
+          const lhrCategories = urlReport.lhr && urlReport.lhr.categories;
+          const a11y =
+            lhrCategories && (lhrCategories.accessibility.score as number);
+          const webPerf =
+            lhrCategories && (lhrCategories.performance.score as number);
+          const seo = lhrCategories && (lhrCategories.seo.score as number);
 
-            // SSL
-            const ssl =
-              urlReport.testssl && urlReport.testssl.find((entry: any) => entry.id === "overall_grade") && urlReport.testssl.find((entry: any) => entry.id === "overall_grade").finding;
+          // SSL
+          const ssl =
+            urlReport.testssl && urlReport.testssl.find((entry: any) => entry.id === "overall_grade") && urlReport.testssl.find((entry: any) => entry.id === "overall_grade").finding;
 
-            // HTTP
-            const http = urlReport.http && urlReport.http.grade;
+          // HTTP
+          const http = urlReport.http && urlReport.http.grade;
 
-            // OWASP
-            const owaspAlerts =
-              (urlReport.zap &&
-                urlReport.zap.site &&
-                urlReport.zap.site.flatMap((site: any) =>
-                  site.alerts.filter((a: any) => a.riskcode !== "0")
-                )) ||
-              [];
-            const owaspCount = urlReport.zap && owaspAlerts.length;
-            const owaspGrade = getOwaspGrade(owaspAlerts);
+          // OWASP
+          const owaspAlerts =
+            (urlReport.zap &&
+              urlReport.zap.site &&
+              urlReport.zap.site.flatMap((site: any) =>
+                site.alerts.filter((a: any) => a.riskcode !== "0")
+              )) ||
+            [];
+          const owaspCount = urlReport.zap && owaspAlerts.length;
+          const owaspGrade = getOwaspGrade(owaspAlerts);
 
-            // TRACKERS
-            const trackersCount =
-              (urlReport.thirdparties &&
-                urlReport.thirdparties.trackers &&
-                urlReport.thirdparties.trackers.length) ||
-              0;
-            const trackersGrade = getGradeTrackers(trackersCount);
+          // TRACKERS
+          const trackersCount =
+            (urlReport.thirdparties &&
+              urlReport.thirdparties.trackers &&
+              urlReport.thirdparties.trackers.length) ||
+            0;
+          const trackersGrade = getGradeTrackers(trackersCount);
 
-            // COOKIES
-            const cookiesCount =
-              (urlReport.thirdparties &&
-                urlReport.thirdparties.cookies &&
-                urlReport.thirdparties.cookies.length) ||
-              0;
-            const cookiesGrade = getGradeCookies(cookiesCount);
+          // COOKIES
+          const cookiesCount =
+            (urlReport.thirdparties &&
+              urlReport.thirdparties.cookies &&
+              urlReport.thirdparties.cookies.length) ||
+            0;
+          const cookiesGrade = getGradeCookies(cookiesCount);
 
-            // NUCLEI
-            const nucleiCount = urlReport.nuclei && urlReport.nuclei.length;
-            const nucleiGrade =
-              urlReport.nuclei && getNucleiGrade(urlReport.nuclei);
+          // NUCLEI
+          const nucleiCount = urlReport.nuclei && urlReport.nuclei.length;
+          const nucleiGrade =
+            urlReport.nuclei && getNucleiGrade(urlReport.nuclei);
 
-            return (
-              <tr key={urlReport.url}>
-                <td>
-                  <Link to={`/url/${encodeURIComponent(urlReport.url)}`}>
-                    <Search size={16} /> {smallUrl(urlReport.url)}
-                  </Link>
-                </td>
-                <td className="text-center">
-                  {lhrCategories ? (
-                    <Grade
-                      small
-                      grade={scoreToGrade(1 - a11y)}
-                      label={(a11y * 100).toFixed() + " %"}
-                    />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {lhrCategories ? (
-                    <Grade
-                      small
-                      grade={scoreToGrade(1 - webPerf)}
-                      label={(webPerf * 100).toFixed() + " %"}
-                    />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {lhrCategories ? (
-                    <Grade
-                      small
-                      grade={scoreToGrade(1 - seo)}
-                      label={(seo * 100).toFixed() + " %"}
-                    />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {ssl ? <Grade small grade={ssl} /> : <IconUnknown />}
-                </td>
-                <td className="text-center">
-                  {http ? <Grade small grade={http} /> : <IconUnknown />}
-                </td>
-                <td className="text-center">
-                  {owaspCount ? (
-                    <Grade small grade={owaspGrade} label={owaspCount} />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {urlReport.thirdparties ? (
-                    <Grade small grade={trackersGrade} label={trackersCount} />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {urlReport.thirdparties ? (
-                    <Grade small grade={cookiesGrade} label={cookiesCount} />
-                  ) : (
-                    <IconUnknown />
-                  )}
-                </td>
-                <td className="text-center">
-                  {urlReport.nuclei ? (<Grade small grade={nucleiGrade} label={nucleiCount} />) : (
-                    <IconUnknown />
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </div>
+          return (
+            <tr key={urlReport.url}>
+              <td>
+                <Link to={`/url/${encodeURIComponent(urlReport.url)}`}>
+                  <Search size={16} />&nbsp;{smallUrl(urlReport.url)}
+                </Link>
+              </td>
+              <td className="text-center">
+                {lhrCategories ? (
+                  <Grade
+                    small
+                    grade={scoreToGrade(1 - a11y)}
+                    label={(a11y * 100).toFixed() + " %"}
+                  />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {lhrCategories ? (
+                  <Grade
+                    small
+                    grade={scoreToGrade(1 - webPerf)}
+                    label={(webPerf * 100).toFixed() + " %"}
+                  />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {lhrCategories ? (
+                  <Grade
+                    small
+                    grade={scoreToGrade(1 - seo)}
+                    label={(seo * 100).toFixed() + " %"}
+                  />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {ssl ? <Grade small grade={ssl} /> : <IconUnknown />}
+              </td>
+              <td className="text-center">
+                {http ? <Grade small grade={http} /> : <IconUnknown />}
+              </td>
+              <td className="text-center">
+                {owaspCount ? (
+                  <Grade small grade={owaspGrade} label={owaspCount} />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {urlReport.thirdparties ? (
+                  <Grade small grade={trackersGrade} label={trackersCount} />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {urlReport.thirdparties ? (
+                  <Grade small grade={cookiesGrade} label={cookiesCount} />
+                ) : (
+                  <IconUnknown />
+                )}
+              </td>
+              <td className="text-center">
+                {urlReport.nuclei ? (<Grade small grade={nucleiGrade} label={nucleiCount} />) : (
+                  <IconUnknown />
+                )}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </Table>
   );
 };

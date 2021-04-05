@@ -10,18 +10,18 @@ export const Grade: React.FC<GradeProps> = ({ grade, label, small }) => {
     newGrade === "F"
       ? "danger"
       : newGrade === "E"
-      ? "danger"
-      : newGrade === "D"
-      ? "warning"
-      : newGrade === "C"
-      ? "info"
-      : newGrade === "B"
-      ? "info"
-      : newGrade === "A"
-      ? "success"
-      : "danger";
+        ? "danger"
+        : newGrade === "D"
+          ? "warning"
+          : newGrade === "C"
+            ? "info"
+            : newGrade === "B"
+              ? "info"
+              : newGrade === "A"
+                ? "success"
+                : "danger";
   return (
-    <Badge variant={variant} style={{ fontSize: small ? "1.3em" : "2em" }}>
+    <Badge variant={variant} style={{ minWidth: 60, fontSize: small ? "1.1em" : "2em" }}>
       {label !== undefined ? label : grade}
     </Badge>
   );
