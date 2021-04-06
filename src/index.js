@@ -128,6 +128,7 @@ const generateReport = () => {
         const urlData = {
           ...url,
           http: requireJson(path.join(latestFilesPath, "http.json")),
+          updownio: requireJson(path.join(latestFilesPath, "updownio.json")),
           testssl: requireJson(path.join(latestFilesPath, "testssl.json")),
           thirdparties: requireJson(
             path.join(latestFilesPath, "thirdparties.json")
