@@ -243,7 +243,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ report }) => {
                   <Grade
                     small
                     grade={updownioGrade}
-                    label={(updownio * 100).toFixed() + " %"}
+                    label={(updownio).toFixed() + " %"}
                   />
                 ) : (
                   <IconUnknown />
